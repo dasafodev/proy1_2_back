@@ -11,10 +11,19 @@ from sklearn.metrics import r2_score, mean_squared_error
 from joblib import load
 from fastapi.encoders import jsonable_encoder
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 from sklearn.metrics import confusion_matrix, accuracy_score
 
 app = FastAPI()
-
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
